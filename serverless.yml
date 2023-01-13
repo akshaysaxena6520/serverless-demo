@@ -10,11 +10,34 @@ functions:
     handler: handler.handler
     events:
       - http:
-          path: /
+          path: user/getallusers
           method: get
           cors: true
       - http:
-          path: /{proxy+}
-          method: any
+          path: user/getuser/{id}
+          method: get
           cors: true
-       
+      - http:
+          path: user/createuser
+          method: post
+          cors: true
+      - http:
+          path: user/updateuser
+          method: put
+          cors: true
+      - http:
+          path: user/deleteuser
+          method: delete
+          cors: true
+
+# To use serverless offline
+plugins:
+  - serverless-offline
+
+# To use prisma
+package:
+  patterns:
+    - '!node_modules/.prisma/client/libquery_engine-*'
+    - 'node_modules/.prisma/client/libquery_engine-rhel-*'
+    - '!node_modules/prisma/libquery_engine-*'
+    - '!node_modules/@prisma/engines/**'
